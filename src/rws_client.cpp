@@ -700,7 +700,10 @@ void RWSClient::checkAcceptedOutcomes(RWSResult* result,
 
       if (!result->success)
       {
-        result->error_message = "checkAcceptedOutcomes(...): RWS response status not accepted";
+        std::ostringstream os;
+        os << "checkAcceptedOutcomes(...): RWS response status not accepted. Response status: " <<
+          static_cast<int>(poco_result.poco_info.http.response.status);
+        result->error_message = os.str();  
       }
     }
   }
